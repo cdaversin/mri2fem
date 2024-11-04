@@ -22,7 +22,7 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     )
 
 
-def main(input: Path, output: Path, n=1, eps=1.0, preserve_volume=True):
+def main(input: Path, output: Path, n=1, edge_length=1.0, no_preserve_volume=True):
     assert input.is_file(), f"Input file {input} not found"
     logger = logging.getLogger(__name__)
     logger.info(
@@ -30,8 +30,8 @@ def main(input: Path, output: Path, n=1, eps=1.0, preserve_volume=True):
         input,
         output,
         n,
-        eps,
-        preserve_volume,
+        edge_length,
+        no_preserve_volume,
     )
     import SVMTK as svmtk
 
@@ -43,12 +43,12 @@ def main(input: Path, output: Path, n=1, eps=1.0, preserve_volume=True):
     # if volume should be preserved,
     # otherwise use Laplacian smoothing
 
-    if preserve_volume:
+    if no_preserve_volume:
         logger.debug("Smoothing using Taubin smoothing")
         surface.smooth_taubin(n)
     else:
         logger.debug("Smoothing using Laplacian smoothing")
-        surface.smooth_laplacian(eps, n)
+        surface.smooth_laplacian(edge_length, n)
 
     # Save smoothened STL surface
     logger.debug("Saving the smoothened surface")
