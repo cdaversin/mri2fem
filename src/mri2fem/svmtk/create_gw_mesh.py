@@ -21,21 +21,21 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("-o", "--output", type=Path, required=True, help="Output STL file")
 
 
-def main(input_pial: Path, input_while: Path, output: Path):
+def main(input_pial: Path, input_white: Path, output: Path):
     assert input_pial.is_file(), f"Input file {input_pial} not found"
-    assert input_while.is_file(), f"Input file {input_while} not found"
+    assert input_white.is_file(), f"Input file {input_white} not found"
     logger = logging.getLogger(__name__)
     logger.info(
         "Running create-gw-mesh with input_pial=%s, input_while=%s, output=%s",
         input_pial,
-        input_while,
+        input_white,
         output,
     )
     import SVMTK as svmtk
 
     logger.debug("Loading input files")
     pial = svmtk.Surface(str(input_pial))
-    white = svmtk.Surface(str(input_while))
+    white = svmtk.Surface(str(input_white))
     surfaces = [pial, white]
 
     # TODO: Might consider passing in the markers and

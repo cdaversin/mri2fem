@@ -34,7 +34,7 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "-ilv",
-        "--input-lh-ventricles",
+        "--input-ventricles",
         type=Path,
         required=True,
         help="Input Right Hemisphere While STL file",
